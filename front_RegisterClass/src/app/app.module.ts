@@ -6,10 +6,11 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from "../components/card/card.component";
-import { HomeComponent } from './home/home.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {MatInputModule} from '@angular/material/input';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -17,9 +18,7 @@ import {MatListModule} from '@angular/material/list';
         AppComponent,
         DashboardComponent,
         AppComponent,
-        HomeComponent,
-       
-    ],
+  ],
     providers: [],
     bootstrap: [AppComponent],
     imports: [
@@ -30,7 +29,9 @@ import {MatListModule} from '@angular/material/list';
         CardComponent,
         MatSidenavModule,
         MatIconModule,
-        MatListModule
+        MatListModule,
+        MatInputModule,
+        MatGridListModule
     ]
 })
 export class AppModule { }
