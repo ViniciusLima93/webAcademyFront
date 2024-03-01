@@ -11,8 +11,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { CursoComponent } from './curso/curso.component';
-import { MateriaComponent } from './materia/materia.component';
 
 
 @NgModule({
@@ -20,8 +18,6 @@ import { MateriaComponent } from './materia/materia.component';
         AppComponent,
         DashboardComponent,
         AppComponent,
-        CursoComponent,
-        MateriaComponent,
   ],
     providers: [],
     bootstrap: [AppComponent],
