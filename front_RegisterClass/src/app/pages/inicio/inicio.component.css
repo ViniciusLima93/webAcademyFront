@@ -1,0 +1,13 @@
+img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 400px;
+    background: none;
+    opacity: 1;
+    border-radius: 6px;
+}
+
+p {
+    font-family: Roboto, 'sans-serif';
+}

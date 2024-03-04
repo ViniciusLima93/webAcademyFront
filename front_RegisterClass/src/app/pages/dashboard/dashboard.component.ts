@@ -1,12 +1,20 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { Chart } from 'chart.js/auto'; 
+import { Chart } from 'chart.js/auto';
+import { CursoService } from 'src/app/services/curso/curso.service';
+import { Curso } from 'src/app/types/ICurso';
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts'
+
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements AfterViewInit {
   @ViewChild('barGraph') canvasRef!: ElementRef;
   @ViewChild('pizzaGraph') pizzaRef! : ElementRef
   @ViewChild('lineGraph') lineRef! : ElementRef
@@ -15,14 +23,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   pizza: any;
   line: any;
 
-  constructor() {}
+  cursos: Curso[] = []
+
+  dataLabelPizzaGraph:any[] = []
+
+  constructor(private cursoService: CursoService) {}
    
-
-  ngOnInit() {
-    
-  }
-
   ngAfterViewInit(): void {
+
+   this.loadCursos()
+
+
     const barGraph = this.canvasRef.nativeElement;
     this.bar = new Chart(barGraph, {
       type: 'bar',
@@ -49,11 +60,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.pizza = new Chart (pizzaGraph, {
         type: 'pie',
         data: {
-            labels: ['Ausentes', 'Presentes'],
+            labels:[''],
             datasets: [
                 {
-                    label: '# of ausentes',
-                    data: [50, 50],
+                    label: 'Alunos',
+                    data: [50, 10, 35],
                     borderWidth: 1,
                 }
             ]
@@ -65,7 +76,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.line = new Chart ( lineGraph, {
         type: 'line',
         data: {
-            labels: ['aprovados', 'reporvados'],
+            labels: ['aprovados', 'reporvados', 'indecisos', ],
             datasets: [
                 {
                     label: '# of aprovados',
@@ -77,4 +88,36 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     })
  }
+
+  loadCursos(): void {
+    this.cursoService.getCursos()
+    .subscribe(
+      (cursos: Curso[]) => {
+        this.cursos = cursos;
+        this.updatePizzaDatas(cursos.map(c => c.Nome))
+      },
+      error => {
+        console.log('Error ao buscar cursos', error)
+      }
+    )
+}
+
+
+
+updatePizzaDatas (labels: string[]) {
+  if (this.pizza) {
+    this.pizza.data.labels = labels;
+    this.pizza.update()
+  }
+}
+
+exportToPDF () {
+  const win = window.open('', '_blank');
+  const documentDefinition = {
+    content: 
+      ['em breve voce podera baixar as informacões']
+  } 
+  pdfMake.createPdf(documentDefinition).download()
+}
+    
 }

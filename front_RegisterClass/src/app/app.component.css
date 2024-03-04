@@ -23,3 +23,10 @@ mat-sidenav{
     width: 200px;
     background-color: #eee; 
 }
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    
+}
