@@ -6,7 +6,11 @@ import { Curso } from 'src/app/types/ICurso';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 
+//@ts-ignore
+import * as html2pdf from 'html2pdf.js'
+
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs
+
 
 
 @Component({
@@ -113,10 +117,11 @@ updatePizzaDatas (labels: string[]) {
 
 exportToPDF () {
   const win = window.open('', '_blank');
+  const htmlContent = document.body
+  const content = html2pdf().from(htmlContent).save()
   const documentDefinition = {
-    content: 
-      ['em breve voce podera baixar as informacões']
-  } 
+    content:[content]
+  }
   pdfMake.createPdf(documentDefinition).download()
 }
     
