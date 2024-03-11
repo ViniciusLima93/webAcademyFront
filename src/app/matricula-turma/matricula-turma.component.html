@@ -1,0 +1,28 @@
+<div>
+    <h2>Matrícula de Discentes em Turmas</h2>
+    <ul>
+      <li *ngFor="let turma of turmas">
+        {{ turma.Nome }}
+        <button (click)="mostrarOpcoesTurma(turma)">Opções</button>
+        <div *ngIf="mostrarOpcoes && selectedTurma.ID_Turma === turma.ID_Turma">
+          <h3>Opções para {{ selectedTurma.Nome }}</h3>
+          <h4>Matrículas dos Discentes na Turma:</h4>
+          <ul>
+            <li *ngFor="let matricula of matriculasDiscentesTurma">
+              {{ matricula }}
+              <button (click)="deletarMatricula(selectedTurma.ID_Turma, matricula)">Excluir</button>
+            </li>
+          </ul>
+          
+          <form (submit)="cadastrarMatricula()">
+            <select [(ngModel)]="novaMatricula" name="novaMatricula">
+              <option value="" disabled selected>Selecione um discente</option>
+              <option *ngFor="let discente of discentes" [value]="discente.Matricula">{{ discente.Nome }}</option>
+            </select>
+            <button type="submit">Cadastrar Matrícula</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
