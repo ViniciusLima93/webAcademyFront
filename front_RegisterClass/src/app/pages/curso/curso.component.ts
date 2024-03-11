@@ -44,11 +44,12 @@ export class CursoComponent implements OnInit {
     } else {
       console.error('ID do curso é undefined');
     }
+    window.location.reload()
   }
 
-  criarCurso(nomeCurso: string): void {
+  criarCurso(nomeCurso: string, vagaCurso: number): void {
     if (nomeCurso.trim()) {
-      const novoCurso: Curso = { Nome: nomeCurso };
+      const novoCurso: Curso = { Nome: nomeCurso, Vagas: vagaCurso };
       this.cursoService.adicionarCurso(novoCurso)
         .subscribe(
           (curso: Curso) => {
@@ -62,10 +63,12 @@ export class CursoComponent implements OnInit {
     } else {
       console.error('Nome do curso não pode estar vazio');
     }
+    window.location.reload()
+    
   }
   
-  adicionarCurso(nomeCurso: string): void {
-    const novoCurso: Curso = { Nome: nomeCurso };
+  adicionarCurso(nomeCurso: string, vagaCurso: number): void {
+    const novoCurso: Curso = { Nome: nomeCurso, Vagas: vagaCurso };
     this.cursoService.adicionarCurso(novoCurso)
       .subscribe(
         (curso: Curso) => {
@@ -97,6 +100,7 @@ export class CursoComponent implements OnInit {
         console.error('ID do curso é undefined');
       }
     }
+    window.location.reload()
   }
 
 }

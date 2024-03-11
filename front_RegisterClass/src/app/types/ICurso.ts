@@ -1,4 +1,5 @@
 export interface Curso {
     ID_Curso?: number;
-    Nome: string
+    Nome: string;
+    Vagas: number;
 }

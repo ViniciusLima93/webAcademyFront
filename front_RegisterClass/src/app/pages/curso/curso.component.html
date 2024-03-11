@@ -1,7 +1,8 @@
 <h2>Lista de Cursos</h2>
 <ul>
   <li *ngFor="let curso of cursos">
-    {{ curso.ID_Curso }} - {{ curso.Nome }}
+    {{ curso.ID_Curso }} - {{ curso.Nome }} {{curso.Vagas}} vagas
+
     <button (click)="deletarCurso(curso.ID_Curso)">Deletar</button>
     <button (click)="atualizarCurso(curso)">Atualizar</button>
   </li>
@@ -11,4 +12,5 @@
 
 <h2>Criar Novo Curso</h2>
 <input type="text" #nomeCursoInput placeholder="Nome do Curso">
-<button (click)="criarCurso(nomeCursoInput.value)">Criar Curso</button>
+<input type="number" #vagasCursoInput placeholder="Insira a Quantidade de Vagas do Curso" />
+<button (click)="criarCurso(nomeCursoInput.value, vagasCursoInput.valueAsNumber)">Criar Curso</button>

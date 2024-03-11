@@ -1,47 +1,54 @@
-    
-<mat-grid-list cols="2" rowHeight="3:1">
+<body>
+    <div class="wrapper">
+        <mat-grid-list cols="2" rowHeight="3:1">
 
-    <mat-grid-tile>
-    
-        <app-card></app-card>
-
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-
-        <mat-card>
-            <mat-card-content>
-                <canvas #barGraph></canvas>   
-            </mat-card-content>
-          </mat-card>
-
+            <mat-grid-tile>
+            
+                <app-card></app-card>
+        
+            </mat-grid-tile>
+        
+            <mat-grid-tile>
+        
+                <mat-card>
+                    <mat-card-content>
+                        <canvas #barGraph></canvas>   
+                    </mat-card-content>
+                  </mat-card>
+        
+                   
+             </mat-grid-tile>
+        
+            <mat-grid-tile>
+                
+                <canvas #pizzaGraph></canvas>
+                
+        
+            </mat-grid-tile>
+        
+            <mat-grid-tile>
+        
+               
+                <canvas #lineGraph></canvas>
+                
+        
+            </mat-grid-tile>
+        
            
-     </mat-grid-tile>
-
-    <mat-grid-tile>
         
-        <canvas #pizzaGraph></canvas>
+            <mat-grid-tile>
+                <button (click)="exportToPDF()">Baixar pdf</button>
+            </mat-grid-tile>
         
-
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-
-       
-        <canvas #lineGraph></canvas>
+            
         
-
-    </mat-grid-tile>
+        </mat-grid-list>
+    </div>
 
    
 
-    <mat-grid-tile>
-        <button (click)="exportToPDF()">Baixar pdf</button>
-    </mat-grid-tile>
+</body>    
 
-    
-
-</mat-grid-list>
    
     
 

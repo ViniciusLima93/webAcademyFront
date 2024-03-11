@@ -23,7 +23,7 @@ export class CursoService {
 
 
   adicionarCurso(curso: Curso): Observable<Curso> {
-    return this.http.post<Curso>(this.apiUrl, { nome: curso.Nome });
+    return this.http.post<Curso>(this.apiUrl, { nome: curso.Nome, vagas: curso.Vagas });
   }
 
   atualizarCurso(id_Curso: number, cursoAtualizado: Curso): Observable<any> {

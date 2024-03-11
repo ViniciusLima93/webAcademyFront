@@ -63,16 +63,7 @@ export class DashboardComponent implements AfterViewInit {
     const pizzaGraph  = this.pizzaRef.nativeElement;
     this.pizza = new Chart (pizzaGraph, {
         type: 'pie',
-        data: {
-            labels:[''],
-            datasets: [
-                {
-                    label: 'Alunos',
-                    data: [50, 10, 35],
-                    borderWidth: 1,
-                }
-            ]
-        },
+        data: this.dataGraphPizza
        
     })
 
@@ -93,12 +84,15 @@ export class DashboardComponent implements AfterViewInit {
     })
  }
 
+
   loadCursos(): void {
     this.cursoService.getCursos()
     .subscribe(
       (cursos: Curso[]) => {
         this.cursos = cursos;
-        this.updatePizzaDatas(cursos.map(c => c.Nome))
+        const nameCurso = cursos.map(c => c.Nome);
+        const vagasCurso = cursos.map(c => c.Vagas);
+        this.updatePizzaDatas(nameCurso,vagasCurso)
       },
       error => {
         console.log('Error ao buscar cursos', error)
@@ -106,19 +100,37 @@ export class DashboardComponent implements AfterViewInit {
     )
 }
 
+dataGraphPizza = {
+  labels: ['Red', 'Orange', 'Yellow', 'Green', 'Brown', 'Blue', 'Pink'],
+  datasets: [
+    {
+      label: 'Alunos',
+      data:this.cursos,
+      borderWidth: 1,
+      backgroundColor: [
+        'Red', 'Orange', 'Yellow', 'Green', 'Brown', 'Blue', 'Pink'
+      ],
+    }
+  ]
+ }
 
 
-updatePizzaDatas (labels: string[]) {
-  if (this.pizza) {
-    this.pizza.data.labels = labels;
-    this.pizza.update()
+
+updatePizzaDatas(labels: string[], vagas: number[]) {
+  if (this.pizza && this.pizza.data && this.pizza.data.datasets) {
+     this.pizza.data.labels = labels;
+     if (this.pizza.data.datasets[0]) {
+       this.pizza.data.datasets[0].data = vagas;
+     }
+     this.pizza.update();
   }
-}
+ }
+ 
 
 exportToPDF () {
-  const win = window.open('', '_blank');
+
   const htmlContent = document.body
-  const content = html2pdf().from(htmlContent).save()
+  const content = html2pdf().from(htmlContent).toPdf().save()
   const documentDefinition = {
     content:[content]
   }
